@@ -4,7 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Base.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
+<!--几种按钮-->
     <Style x:Key="btnBase" TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="FontWeight" Value="Normal"></Setter>
@@ -88,50 +88,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="btnBaseCancelWithOutBorder" TargetType="{x:Type Button}">
-        <Setter Property="FontSize" Value="15"></Setter>
-        <Setter Property="FontWeight" Value="Normal"></Setter>
-        <Setter Property="FontFamily" Value="黑体"></Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-        <Setter Property="VerticalAlignment" Value="Center"></Setter>
-        <Setter Property="Foreground" Value="{StaticResource ButtonBackground}"></Setter>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Border BorderBrush="#FF4493" BorderThickness="0" CornerRadius="4" Name="PART_Background">
-                            <Border.Background>
-                                <SolidColorBrush Color="#FFFFFF">
-                                </SolidColorBrush>
-                            </Border.Background>
-                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
-                        </Border>
-                        <Rectangle x:Name="DisabledVisualElement" Fill="#C0C0C0" IsHitTestVisible="false" Opacity="0" RadiusY="5" RadiusX="5"  />
-                    </Grid>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="Gold"></Setter>
-
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="#3399CC"></Setter>
-                            <Setter Property="Background" Value="#F0F182"></Setter>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="PART_Background" Value="#999999"></Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-    <Style x:Key="btnBaseCancelWithGrayBorder" TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="FontWeight" Value="Normal"></Setter>
         <Setter Property="FontFamily" Value="黑体"></Setter>
@@ -172,7 +128,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="btnBaseSelect" TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>
@@ -213,7 +168,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="btnLogin" TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="16"></Setter>
         <Setter Property="FontWeight" Value="Normal"></Setter>
@@ -255,7 +209,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="btnSelect" TargetType="{x:Type Button}">
         <Setter Property="FontSize" Value="12"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>
@@ -325,7 +278,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+    <!--水平渐变背景色-->
     <Style x:Key="CanvasBackGroundGrandient" TargetType="Canvas">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -340,8 +293,7 @@
 
         </Setter>
     </Style>
-
-
+<!--下拉框-->
     <Style x:Key="comboxBase" TargetType="{x:Type ComboBox}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="ItemContainerStyle">
@@ -454,7 +406,6 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type DatePicker}">
         <Setter Property="Foreground" Value="Transparent"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Height" Value="30"/>
@@ -565,8 +516,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
+<!--复选框-->
     <Style x:Key="chkBullet" TargetType="CheckBox">
         <Setter Property="IsChecked" Value="False"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -591,7 +541,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="chkPassWord" TargetType="CheckBox">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#ACABAB"/>
@@ -630,7 +579,174 @@
         </Setter>
     </Style>
 
+   <Style x:Key="ExpanderToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Background" Value="White"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Grid   Width="300" Height="{TemplateBinding Height}" 
+                    Background="White" SnapsToDevicePixels="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="240"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Canvas x:Name="canvNormal" Visibility="Visible"  Background="Transparent" Height="20" Width="20"
+                                         Grid.Column="0"   SnapsToDevicePixels="True" Canvas.Right="0">
+                                    <Image Source="/Assets/images/close.png" Width="20" Height="20" Stretch="Fill"  HorizontalAlignment="Stretch" VerticalAlignment="Center" ></Image>
+                                    </Canvas>
+                                <Canvas x:Name="canvChecked" Visibility="Hidden"   Background="Transparent" Height="20" Width="20"
+                     SnapsToDevicePixels="True" Canvas.Right="0">
+                                    <Image Source="/Assets/images/open.png" Width="20" Height="20" ></Image>
+                                </Canvas>
+                                <ContentPresenter  Grid.Column="1"
+                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                           
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Setter Property="Visibility" TargetName="canvChecked" Value="Visible" />
+                                    <Setter Property="Visibility" TargetName="canvNormal" Value="Hidden" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+   <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontFamily" Value="微软雅黑" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Expander}">
+                            <Grid 
+                            Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                            Width="260">
+                                <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <ToggleButton x:Name="HeaderSite"  Grid.Row="0" Margin="{TemplateBinding Margin}"
+                          ContentTemplate="{TemplateBinding HeaderTemplate}" 
+                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                          Content="{TemplateBinding Header}"                                   
+                          IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"                                  
+                          Style="{StaticResource ExpanderToggleButtonStyle}" />
+                                <ContentPresenter x:Name="ExpandSite" Grid.Row="1" 
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Margin}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsExpanded" Value="True">
+                                    <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                                </Trigger>
+                                <Trigger Property="IsExpanded" Value="false">
+                                    <Setter Property="Visibility" TargetName="ExpandSite" Value="Collapsed"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
 
+<Style TargetType="ListBoxItem" x:Key="ListBoxItemEmptyTemplate">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border x:Name="BorderBackground" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
 
+                                    <Setter Property="Background" TargetName="BorderBackground" Value="Transparent" />
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+<DataTemplate x:Key="NetWorkVideoNodeTemplate"   >
+                <Border x:Name="border" BorderThickness="0" BorderBrush="#EDEDED" Margin="0,0"  >
+                    <Grid  Margin="3,0" Width="250"  Height="95" Background="Transparent">
+                        <Grid.ColumnDefinitions  >
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition  />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border  BorderBrush="Transparent" BorderThickness="0" Width="70" Height="55"  Grid.RowSpan="2" VerticalAlignment="Center" >
+                            <Image x:Name="imageSource" 
+                               Source="{Binding Image}" Width="70" Height="50" VerticalAlignment="Center" Margin="1" HorizontalAlignment="Stretch"  Stretch="Fill" MouseLeftButtonDown="ImageSource_MouseLeftButtonDown_1" />
+                        </Border>
+                        
+                        <Image Source="/Assets/Images/NEW.png" Width="30" 
+							   Height="20" Margin="-38,-5,0,0" 
+							Visibility="{Binding IsNew,Converter={StaticResource VisibilityReverseConverter}}"
+						 />
+                        <Canvas x:Name="upImageSource" Grid.Column="0"  Grid.RowSpan="2" HorizontalAlignment="Center"
+                                Background="Transparent" Width="40" Height="40"
+                                VerticalAlignment="Center"  Visibility="Hidden" 
+                                >
+                            <Grid Grid.Column="0" Height="40" Width="40" >
+                                <Border Width="30" Height="30" CornerRadius="20" Background="#686868" Opacity="0.5"
+                                        VerticalAlignment="Center" HorizontalAlignment="Center"  ></Border>
+                                <ed:Arc 
+                                    StrokeThickness="0" ArcThickness="3" 
+                                            ArcThicknessUnit="Pixel" 
+                                            Fill="FloralWhite"  HorizontalAlignment="Center"  
+                                            Height="30" Width="30" Stretch="None" Stroke="White" EndAngle="300"
+                                            StartAngle="0" VerticalAlignment="Center"/>
+
+                                <TextBlock 
+                                    x:Name="progress" 
+                                    Foreground="WhiteSmoke"    FontSize="8"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center">0%</TextBlock>
+                            </Grid>
+                        </Canvas>
+                        <TextBlock  x:Name="text" Grid.Column="1"  Grid.Row="0" TextAlignment="Left" 
+                                      Margin="20,5,0,0"    Width="160"  FontSize="14"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Descript}"   TextWrapping="Wrap" />
+                        <!--Text="{Binding Descript}" -->
+                        <TextBlock  x:Name="price" Grid.Column="1"  Grid.Row="1" Margin="20,0,0,0"
+                                      FontSize="14" VerticalAlignment="Top" Foreground="#FF4493" FontWeight="Bold" Text="{Binding Price, StringFormat={}¥{0}}"  TextAlignment="Left" />
+                        <!--Text="{Binding PayMoney, StringFormat={}¥{0}}"-->
+                        <TextBlock  x:Name="downloadState" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Center" TextWrapping="Wrap"
+                                      FontSize="11" Width="50"  Foreground="#686868"  VerticalAlignment="Top" Text="{Binding downloadSpeed}" TextAlignment="Center" />
+                        <Grid Grid.Column="1" Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button  x:Name="btnPreview" Width="60"  Height="20" FontSize="13" 
+                                          VerticalAlignment="Center" Content="预览"  Click="BtnPreview_Click"
+                                           Style="{StaticResource btnBaseCancelWithGrayBorder}"></Button>
+                            <Button Grid.Column="1" x:Name="downloadButton"
+                                   Width="60"  Height="20" FontSize="13" VerticalAlignment="Center" Content="购买"  Click="DownloadButton_Click"
+                                    Style="{StaticResource btnBase }"></Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <DataTemplate.Triggers>
+                    <DataTrigger   Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="true">
+                        <Setter TargetName="border" Property="BorderBrush" Value="#FF4493" />
+                        <Setter TargetName="border" Property="BorderThickness" Value="2,0,0,0" />
+                        <Setter TargetName="text" Property="Foreground" Value="#FF4493" />
+                        <Setter Property="Background" TargetName="border">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="/Assets/Images/渐变.png" />
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+
+            </DataTemplate>
 </ResourceDictionary>
