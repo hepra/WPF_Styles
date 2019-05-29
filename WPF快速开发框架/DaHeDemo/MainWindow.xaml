@@ -3,14 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vlcPlayer="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
         mc:Ignorable="d"
+         xmlns:attached="clr-namespace:DMSkin.Attached;assembly=DMSkin"
         xmlns:dmskin="clr-namespace:DMSkin;assembly=DMSkin"
         Style="{DynamicResource AduWindowStyle}" 
         WindowStartupLocation="CenterScreen"
         Background="#2D2D30"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
-        Title="MainWindow" Height="450" Width="800">
+                     KeyDown="DMSkinWindow_KeyDown"
+        Title="MainWindow"  Height="800" Width="1300">
     <!--Icon="设置窗口图标"-->
     
     <Window.Resources>
@@ -25,8 +28,266 @@
                 <Setter Property="FontFamily" Value="微软雅黑"></Setter>
                 <Setter Property="VerticalAlignment" Value="Center"></Setter>
             </Style>
+            <!--#region 滚动条-->
+            <Style x:Key="RepeatStyle" TargetType="{x:Type RepeatButton}">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Rectangle Fill="#00000000" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ThumbStyle" TargetType="{x:Type Thumb}">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Grid Background="{StaticResource TransparentColor}">
+                                <Rectangle
+                            x:Name="rect"
+                            Width="0"
+                            HorizontalAlignment="Right"
+                            Fill="{TemplateBinding BorderBrush}" />
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Width)"
+                                            To="10"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Width)"
+                                            To="10"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Width)"
+                                            To="10"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(UIElement.Opacity)"
+                                            To="0.5"
+                                            Duration="0:0:0.1" />
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Width)"
+                                            To="3"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ThumbStyle1" TargetType="{x:Type Thumb}">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Grid Background="{StaticResource TransparentColor}">
+                                <Rectangle
+                            x:Name="rect"
+                            Height="0"
+                            VerticalAlignment="Bottom"
+                            Fill="{TemplateBinding BorderBrush}" />
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Height)"
+                                            To="10"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Height)"
+                                            To="10"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Height)"
+                                            To="10"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(UIElement.Opacity)"
+                                            To="0.5"
+                                            Duration="0:0:0.1" />
+                                                <DoubleAnimation
+                                            Storyboard.TargetName="rect"
+                                            Storyboard.TargetProperty="(Rectangle.Height)"
+                                            To="3"
+                                            Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ScrollBarStyle" TargetType="{x:Type ScrollBar}">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="ContextMenu" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollBar}">
+                            <Grid SnapsToDevicePixels="true">
+                                <Track
+                            x:Name="PART_Track"
+                            IsDirectionReversed="true"
+                            IsEnabled="{TemplateBinding IsMouseOver}">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource RepeatStyle}" />
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource RepeatStyle}" />
+                                    </Track.IncreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb BorderBrush="{TemplateBinding BorderBrush}" Style="{StaticResource ThumbStyle}" />
+                                    </Track.Thumb>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="Orientation" Value="Horizontal">
+                        <Setter Property="Width" Value="Auto" />
+                        <Setter Property="MinWidth" Value="0" />
+                        <Setter Property="Height" Value="8" />
+                        <Setter Property="MinHeight" Value="8" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                    <Grid SnapsToDevicePixels="true">
+                                        <Track
+                                    x:Name="PART_Track"
+                                    IsDirectionReversed="true"
+                                    IsEnabled="{TemplateBinding IsMouseOver}">
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton Command="{x:Static ScrollBar.PageLeftCommand}" Style="{StaticResource RepeatStyle}" />
+                                            </Track.DecreaseRepeatButton>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton Command="{x:Static ScrollBar.PageRightCommand}" Style="{StaticResource RepeatStyle}" />
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.Thumb>
+                                                <Thumb BorderBrush="{TemplateBinding BorderBrush}" Style="{StaticResource ThumbStyle1}" />
+                                            </Track.Thumb>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="DMScrollViewer" TargetType="ScrollViewer">
+                <Setter Property="Background" Value="{StaticResource TransparentColor}" />
+                <Setter Property="attached:Mouse.BackColor" Value="#BBBBBB" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollViewer">
+                            <Grid Background="{StaticResource TransparentColor}">
+                                <ScrollContentPresenter Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                                <ScrollBar
+                            x:Name="PART_VerticalScrollBar"
+                            MinWidth="15"
+                            MaxWidth="15"
+                            HorizontalAlignment="Right"
+                            AutomationProperties.AutomationId="VerticalScrollBar"
+                            BorderBrush="{TemplateBinding attached:Mouse.BackColor}"
+                            Cursor="Arrow"
+                            Maximum="{TemplateBinding ScrollableHeight}"
+                            Minimum="0"
+                            Style="{StaticResource ScrollBarStyle}"
+                            ViewportSize="{TemplateBinding ViewportHeight}"
+                            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                            Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ScrollBar
+                            x:Name="PART_HorizontalScrollBar"
+                            MinHeight="15"
+                            MaxHeight="15"
+                            VerticalAlignment="Bottom"
+                            AutomationProperties.AutomationId="HorizontalScrollBar"
+                            BorderBrush="{TemplateBinding attached:Mouse.BackColor}"
+                            FlowDirection="RightToLeft"
+                            Maximum="{TemplateBinding ScrollableWidth}"
+                            Minimum="0"
+                            Orientation="Horizontal"
+                            Style="{StaticResource ScrollBarStyle}"
+                            ViewportSize="{TemplateBinding ViewportWidth}"
+                            Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                            Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-       
+            <DataTemplate x:Key="PlayListNode"   >
+                <Border x:Name="border" BorderThickness="0" BorderBrush="#EDEDED" Margin="0,0"  >
+                    <Grid  Margin="3,0" Width="auto"  Height="auto" Background="Transparent">
+                        <Grid.ColumnDefinitions  >
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition  />
+                        </Grid.ColumnDefinitions>
+                        <Button    Command="{Binding btnDeletePlayListNode}" CommandParameter="{Binding ElementName=txtDeleteInfo}"
+                                       Style="{StaticResource btnBaseDelete}" Width="15" Height="15"
+                                   ></Button>
+                        <TextBlock Grid.Column="1" Text="{Binding VideoPath}" x:Name="txtDeleteInfo" Foreground="White"></TextBlock>
+                    </Grid>
+                </Border>
+                <DataTemplate.Triggers>
+                    <DataTrigger   Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="true">
+                        <Setter TargetName="border" Property="BorderBrush" Value="#FF4493" />
+                        <Setter TargetName="border" Property="BorderThickness" Value="2,0,0,0" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+
+            </DataTemplate>
+
         </ResourceDictionary>
 
     </Window.Resources>
@@ -74,13 +335,135 @@
             </Grid>
         </Grid>
     </dmskin:DMSkinWindow.TitleContent>
-    
-    <Grid>
+    <Border CornerRadius="4" Background="#302C3A" Name="mainback">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Canvas Grid.Column="1" Grid.Row="1" Width="250" Height="auto" Margin="0"   >
+                <Canvas Name="playListCanvas" Grid.Column="1" Grid.Row="1"  Background="#686868" Width="250" Margin="0" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="播放列表" FontWeight="Bold" Foreground="#fff" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                            <Button Name="btnOpen" Style="{StaticResource btnBaseSelect}" Height="20" Width="60" FontSize="12" Grid.Column="1" Margin="10,20,0,0">打开文件</Button>
+
+                        </Grid>
+                        <ScrollViewer Style="{StaticResource DMScrollViewer}" Margin="0,5" Grid.Row="1">
+                            <ListBox BorderBrush="Transparent" Background="Transparent" ItemTemplate="{StaticResource PlayListNode}" ItemsSource="{Binding PlayLists}" SelectionChanged="ListBox_SelectionChanged" ></ListBox>
+                        </ScrollViewer>
+                    </Grid>
+
+
+                </Canvas>
+            </Canvas>
+
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Padding="5">
+                <ScrollViewer Style="{StaticResource ResourceKey=AduScrollViewer}" HorizontalScrollBarVisibility="Disabled">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.8*"></RowDefinition>
+                            <RowDefinition  Height="100"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock   Text="{Binding VideoTitle}" FontSize="20" Margin="10,0" Foreground="#fff" VerticalAlignment="Center"></TextBlock>
+                            <Border Grid.Row="1" Margin="0" BorderBrush="White" BorderThickness="1" CornerRadius="20"  >
+                                <vlcPlayer:VlcControl Name="VlcPlayer" Margin="10"></vlcPlayer:VlcControl>
+                            </Border>
+                        </Grid>
+
+                        <Border Margin="0" Background="#20ffffff"   Grid.Row="1"  >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition  Width="0.8*"></ColumnDefinition>
+                                    <ColumnDefinition  Width="100"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="White" FontSize="16" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CurrentPos}"></TextBlock>
+                                <Slider Name="playSilder" Grid.Column="1" Maximum="100" Minimum="0"  VerticalAlignment="Center" Value="{Binding Progress ,Mode=TwoWay}" PreviewMouseDown="PlaySilder_PreviewMouseDown" MouseLeftButtonUp="Slider_MouseLeftButtonUp"></Slider>
+                                <TextBlock Grid.Column="2" Foreground="White" FontSize="16"  Text="{Binding MaxPos}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                                <Border  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="1"
+                                             BorderThickness="1" CornerRadius="30" Background="#E6E6E6">
+                                    <Grid  >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Button  
+                                            Grid.Column="0" Style="{StaticResource btnBasePrevious }" Height="60" Width="40" >
+                                            </Button>
+                                            <Button Grid.Column="1" Style="{StaticResource btnBasePlay}" Height="60" Width="60" Click="Button_Click_1" Background="AliceBlue"></Button>
+                                            <Button   Click="Button_Click"
+                                            Grid.Column="2" Style="{StaticResource btnBaseNext }" Height="60" Width="40">
+                                            </Button>
+                                        </Grid>
+                                       
+                                    </Grid>
+                                </Border>
+
+                            </Grid>
+                            <!--<GroupBox Style="{StaticResource AduGroupBox}" Header="详细信息列表" FontWeight="Bold" Margin="0,10" FontSize="12" Foreground="#fff" BorderThickness="3,0,0,0" BorderBrush="#4ABDA7">
+                                <DataGrid Margin="3" Style="{StaticResource AduDataGrid}"  x:Name="AduDataGrids"  GridLinesVisibility="None" BorderThickness="0">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="时间" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox Style="{StaticResource AduCheckBox}" Foreground="#fff" VerticalAlignment="Center"></CheckBox>
+                                                        <TextBlock Text="{Binding CodeName}" Foreground="#fff" VerticalAlignment="Center"></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Width="*" Header="序号" Binding="{Binding Phone}"></DataGridTextColumn>
+                                        <DataGridTextColumn Width="*" Header="包装号" Binding="{Binding Email}" ></DataGridTextColumn>
+                                        <DataGridTextColumn Width="*" Header="其他" Binding="{Binding Info}" ></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>-->
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Border>
+    <!--<Grid>
         <DockPanel  LastChildFill="False">
             <Button Style="{StaticResource btnBase}" Margin="10"  Width="100" Height="30" Content="样式BtnBase" DockPanel.Dock="Top"></Button>
             <Button Style="{StaticResource btnBaseCancel}" Margin="10"  Height="30" Content="样式btnBaseCancel" DockPanel.Dock="Left"></Button>
             <Button Style="{StaticResource btnSelect}" Margin="10" Height="30" Foreground="White" Content="样式BtnBase" DockPanel.Dock="Bottom"></Button>
         </DockPanel>
         
-    </Grid>
+    </Grid>-->
 </dmskin:DMSkinWindow>

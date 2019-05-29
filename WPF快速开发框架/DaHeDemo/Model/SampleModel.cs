@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DaHeDemo.Model
+﻿namespace DaHeDemo.Model
 {
-    public class SampleModel:MVVM.MvvmBase
+    public class SampleModel:DMSkin.Core.ViewModelBase
     {
         private string _name;
         /// <summary>
@@ -18,7 +12,7 @@ namespace DaHeDemo.Model
             set
             {
                 _name = value;
-                RaisePropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Name));
             }
         }
     }

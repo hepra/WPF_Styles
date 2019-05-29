@@ -1,14 +1,10 @@
-﻿using DaHeDemo.MVVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using DMSkin.Core;
 using System.Windows.Input;
 
 namespace DaHeDemo.ViewModel
 {
-    public class SampleViewModel:MVVM.MvvmBase
+    public class SampleViewModel:DMSkin.Core.ViewModelBase
     {
         public SampleViewModel()
         {
@@ -22,7 +18,7 @@ namespace DaHeDemo.ViewModel
             set
             {
                 _SampleModel = value;
-                RaisePropertyChanged(nameof(SampleModel));
+                OnPropertyChanged(nameof(SampleModel));
             }
         }
 
